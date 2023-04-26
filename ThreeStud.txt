@@ -1,0 +1,32 @@
+import java.io.FileWriter;
+import java.util.Scanner;
+ 
+public class ThreeStudent {
+ 
+    public static void main(String args[]) {
+        Scanner s=new Scanner(System.in);
+        try {
+        FileWriter fr=new FileWriter("xyz.txt");
+        for(int i=0;i<3;i++)
+        {
+        System.out.println("Enter name");
+        String name=s.next();
+        System.out.println("Enter gender");
+        String gender=s.next();
+        System.out.println("Enter email");
+        String email=s.next();
+        fr.write(name);
+        fr.write(" ");
+        fr.write(gender);
+        fr.write(" ");
+        fr.write(email);
+        fr.write(" ");
+        fr.write("\n");
+        fr.flush();
+        }
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+       }
+}
