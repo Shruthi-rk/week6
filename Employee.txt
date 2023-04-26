@@ -1,0 +1,107 @@
+/*Employee Management: Create a class called Employee that represents an employee and a class called Company that represents a company. The company class should have methods to add, remove, and display employees. You can also create a custom exception called InvalidSalaryException to throw when an employee's salary is below the minimum wage. in java*/
+import java.util.Scanner;
+class InvalidSalaryException extends Exception{
+    
+}
+class Employ{
+private String name;
+private double salary;
+    public void addEmploy(String name, double salary) throws InvalidSalaryException{
+        
+        if(salary<20000){
+            throw new InvalidSalaryException();
+        }
+        
+        this.name=name;
+        this.salary=salary;
+        
+        
+    }
+    public String getName(){
+        return name;
+    }
+    public double getSalary(){
+        return salary;
+    }
+}
+class Company{
+    
+    Employ[] employ=new Employ[10];
+    int i=0;
+    
+    public void addEmploy(Employ emp){
+        employ[i]=emp;
+    }
+    public void removeEmploy(String name){
+        int count=0;
+        for(int j=0;j<=i;j++){
+            if(employ[i].getName().equals(name)){
+                count++;
+                employ[j]=employ[j+1];
+            }
+        }
+        if(count>=1){
+            System.out.println("Employee removed");
+        }
+        else{
+            System.out.println("No Employee found with given name");
+        }
+    }
+    public void displayEmploy(){
+        System.out.println("Employees in Company");
+        for(int j=0;j<employ.length;j++){
+            if(employ[j] != null){
+            System.out.println(employ[j].getName()+"     "+employ[j].getSalary());
+            }
+        }
+    }
+    
+}
+public class EMPloy
+{
+   
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        Company c=new Company();
+        Employ emp=new Employ();
+        int option=10;
+        do{
+            System.out.println("Enter 1 to addEmployee");
+            System.out.println("Enter 2 to removeEmployee");
+            System.out.println("Enter 3 to displayEmployee");
+            System.out.println("Enter 0 to exit");
+               
+               option=sc.nextInt();
+               switch(option){
+                   case 1:{
+                       sc.nextLine();
+                       System.out.println("Enter employee name");
+                       String name=sc.nextLine();
+                       System.out.println("Enter employee salary");
+                        double salary=sc.nextDouble();
+                       try{
+                          emp.addEmploy(name,salary);
+                       }
+                       catch(Exception e){
+                          System.out.println(e);
+                       }
+                       
+                       c.addEmploy(emp);
+                       break;
+                   }
+                   case 2:{
+                       sc.nextLine();
+                       System.out.println("Enter employee name to remove");
+                        String name=sc.nextLine();
+                       c.removeEmploy(name);
+                       break;
+                   }
+                   case 3:{
+                       c.displayEmploy();
+                       break;
+                   }
+                       
+               }
+        }while(option!=0);
+    }
+}
