@@ -1,0 +1,39 @@
+import java.io.FileWriter;
+import java.io.FileReader;
+public class Read3 {
+    public static void main(String[] args) {
+        int dc=0,sc=0,ac=0,sp=0;
+        try {
+        FileReader fr=new FileReader("xyz.txt");
+        int i=0;
+        while((i=fr.read())!=-1) {
+        char c=(char)i;
+        if((c>='a'&& c<='z'||c>='A'&&c<='Z'))    
+           {
+             ac++;
+           }
+        else if(c>='0'&&c<='9')
+        {
+          dc++;
+        }
+        else if(c==' ')
+        {
+          sc++;
+        }
+        else
+        {
+          sp++;
+        }
+        }
+        FileWriter fw=new FileWriter("pqr.txt");
+        fw.write("Alphabet count is :"+ac +"\n");
+        fw.write("Digit count is : "+dc +"\n");
+        fw.write("White space count is : "+sc +"\n");
+        fw.write("Special charecter count is : "+sp +"\n");
+        fw.flush();
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+}
