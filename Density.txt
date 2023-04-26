@@ -1,0 +1,99 @@
+/*2. Write a Java program to read data from data.txt file and find following 
+      --> Frequency of each word in a file
+      --> Density of each word in a file
+      --> Top 3 density words
+ Once you are done with first program, please start second program*/
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+public class NewAssign
+  {
+    public static void main(String args[])
+    {
+      int count=1;
+      try
+        {
+          FileReader fr=new FileReader("data.txt");
+          BufferedReader br=new BufferedReader(fr);
+          String line=null;
+          double den[]=new double[50];
+          int pos=0;
+          int maxFrequency = Integer.MIN_VALUE;
+          int secmax=Integer.MIN_VALUE;
+          int thirmax=Integer.MIN_VALUE;
+          String high = null;
+          String sec= null;
+          String thir = null;
+          FileWriter fw=new FileWriter("report.txt",true);
+          BufferedWriter bw=new BufferedWriter(fw);
+          int num=0;
+          while((line=br.readLine())!=null)
+            {
+              num++;
+              String words[]=line.split(" ");
+              int total=words.length;
+              for(int i=0;i<words.length;i++)
+                {
+                  for(int j=i+1;j<words.length;j++)
+                    {
+                      if(words[i].equals(words[j]))
+                      {
+                        count++;
+                        words[j]=" ";
+                      }
+                      }
+              if(words[i]!=" ") 
+              {
+              double density= (double)count/total;
+              den[pos++]=density;
+              if(count>maxFrequency)
+              {
+                thirmax=secmax;
+                secmax=maxFrequency;
+                maxFrequency = count;
+                thir=sec;
+                sec=high;
+                high=words[i];
+               }
+              else if(count>secmax)
+              {
+                thirmax=secmax;
+                secmax=count;
+                sec=words[i];
+                thir=sec;
+              }
+              else if(count>thirmax)
+              {
+                thirmax=count;
+                thir=words[i];
+              }
+              bw.write("Count and density of line number "+num);
+              bw.write("\n");
+              bw.write(words[i]+" : occurs : "+count +" times. ");
+              bw.write("\n");
+              bw.write("Density : "+density);
+              bw.write("\n");
+              bw.flush();
+              System.out.println(words[i]+" : "+count);
+              System.out.println("density "+density);
+            }
+            count=1;   
+            }
+            bw.write("Highest frequency number is "+ "[" +high +"]"+" occurs " +maxFrequency + " times."+"density is " +(double)maxFrequency/total);
+            bw.write("\n");
+            bw.write("Second  frequency number is  "+ "[" +sec +"]"+ " occurs " + secmax + " times." +"density is " +(double)secmax/total);
+            bw.write("\n");
+            bw.write("Third frequency number is "+ "[" +thir +"]" +" occurs "+thirmax +" density is " +(double)thirmax/total);
+            bw.write("\n");
+            bw.flush();
+            System.out.println("Highest frequency number is "+ "[" +high +"]"+" occurs " +maxFrequency + " times."+"density is " +(double)maxFrequency/total);
+            System.out.println("Second  frequency number is  "+ "[" +sec +"]"+ " occurs " + secmax + " times." +"density is " +(double)secmax/total);
+            System.out.println("Third frequency number is "+ "[" +thir +"]" +" occurs "+thirmax +" density is " +(double)thirmax/total);
+            }
+            } catch(Exception e)
+            {
+              System.out.println(e);
+            }
+  }
+  }
