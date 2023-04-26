@@ -1,0 +1,110 @@
+/*Online Store: Create a class called Product that represents a product in an online store, and a class called Store that represents the store. The store class should have methods to add, remove, and display products. You can also create a custom exception called ProductNotFoundException to throw when a product is not found in the store.*/
+import java.util.*;
+class ProductNotFoundException extends Exception{
+	public ProductNotFoundException(String msg)
+  {
+		super(msg);
+		
+	}
+}
+class Product{
+	private String product;
+	private double cost;
+	public String getProduct() {
+		return product;
+	}
+	public void setProduct(String product) {
+		this.product = product;
+	}
+	public double getCost() {
+		return cost;
+	}
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+}
+
+class Store {
+	static Scanner s = new Scanner(System.in);
+	Product[]prod;
+	int n;
+	public void addDetails() {
+		System.out.println("enter the no of products: ");
+		n=s.nextInt();
+		prod = new Product[n];
+		for (int i=0;i<n;i++) {
+			Product pd = new Product();
+			System.out.println("enter the details: " +(i+1));
+			System.out.println("enter the product name: ");
+			pd.setProduct(s.next());
+			System.out.println("enter the cost of the product: ");
+			pd.setCost(s.nextDouble());
+			prod[i]=pd;
+		}
+	}
+	public void removeProduct() throws ProductNotFoundException {
+		System.out.println("enter the product: ");
+		String product = s.next();
+		boolean found = false;
+		for(int i=0;i<n;i++) {
+			if (product.equals(prod[i].getProduct())) {
+				prod[i]=prod[n-1];
+				n--;
+				found = true;
+				
+			}
+		}
+		if (!found) {
+			throw new ProductNotFoundException("not found");
+			
+		}
+	}
+	public void display() {
+		for(int i=0;i<n;i++) {
+			System.out.println("product name: "+prod[i].getProduct());
+			System.out.println("product name: "+prod[i].getCost());
+		}
+	}
+	public void viewOptions() {
+		int option = 0;
+		do {
+			System.out.println("1.add product");
+			System.out.println("2.remove product");
+			System.out.println("3.display product");
+			System.out.println("4.exit");
+			System.out.println("select an option");
+			option = s.nextInt();
+			switch(option){
+			case 1:
+				addDetails();
+			break;
+			case 2:
+				try {
+					removeProduct();
+				}
+				catch (Exception e) {
+					System.out.println(e);
+				}
+				break;
+			case 3:
+				display();
+				break;
+			case 0:
+				System.out.println("thankyou");
+				break;
+				default:
+					System.out.println("enter a valid option");
+					break;
+				}
+			}
+		while(option!=0);
+	}
+}
+  public class ProDuct
+  {
+	public static void main(String args[]) 
+  {
+		Store obj = new Store();
+		obj.viewOptions();
+	}
+}
