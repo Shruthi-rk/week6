@@ -1,0 +1,29 @@
+import java.io.*;
+public class Mentor
+  {
+    public static void main(String args[])
+    {
+      try{
+        BufferedReader br=new BufferedReader(new FileReader("D://Project/Tech_mentors.txt"));
+        BufferedReader br1=new BufferedReader(new FileReader("D://Project/softskills_mentor.txt"));
+        BufferedWriter bw=new BufferedWriter(new FileWriter("D:/Project/mentors_details.txt",true));
+        String line=null;
+        while((line=br.readLine())!=null)
+          {
+            bw.write(line);
+            bw.write("\n");
+            bw.flush();
+          }
+        while((line=br1.readLine())!=null)
+          {
+            bw.write(line);
+            bw.write("\n");
+            bw.flush();
+          }
+      }
+      catch(Exception e)
+        {
+          System.out.println(e);
+        }
+    }
+  }
